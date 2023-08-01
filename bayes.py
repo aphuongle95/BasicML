@@ -5,7 +5,7 @@
 # type3: 3kg, 60% germination rate
 
 # Bayes theorem
-# P_germinate = P(type1 | germinate) + P(type2 | germinate) + P(type3 | germinate)
+# P_germinate = P(type1 and germinate) + P(type2 and germinate) + P(type3 and germinate)
 # P(A|B) = P(B|A)*P(A) / P(B)
 # => P(A_specific|B) = P(B\A_specific)*P(A_specific) / 
 # (sum_over_all_A(P(B|A)*P(A)))
@@ -20,10 +20,13 @@ def bayes(likelihoods, priors, marginal, index):
     return res
 
 w = 0.5+1.5+3
-likelihoods = [0.5/w, 1.5/w, 3/w]
-priors = [0.9, 0.8, 0.6]
+likelihoods = [0.9, 0.8, 0.6] # probability of germination given each type
+priors = [0.5/w, 1.5/w, 3/w] # probability of each type
+
+# calculate the probability that one seed will germinate
 m = marginal(likelihoods, priors)
 print(m)
 
+# calculate the probability that the germinated seed is type 1
 b1 = bayes(likelihoods, priors, m, 0)
 print(b1)
